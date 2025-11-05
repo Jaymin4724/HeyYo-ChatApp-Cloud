@@ -12,9 +12,8 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       const socket = io("/", {
+        path: "/api/socket.io",
         query: {
-          // --- CHANGED ---
-          // We now send the username as the unique ID for the socket server
           userId: authUser.username,
         },
       });
