@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/api.js"; // <-- CHANGED
 import toast from "react-hot-toast";
 
 const useGetContacts = () => {
@@ -8,7 +8,7 @@ const useGetContacts = () => {
   const getConversations = async () => {
     setLoading(true);
     try {
-      const res = axios.get("/api/users");
+      const res = api.get("/api/users"); // <-- CHANGED
       const data = (await res).data;
       if (!data) {
         toast.error("No Users Found");

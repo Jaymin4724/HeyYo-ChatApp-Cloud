@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import { useNavigate } from "react-router-dom"; // <-- REMOVED
+import api from "../api/api.js"; // <-- CHANGED
 import { AuthContext } from "../context/AuthContext";
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // <-- REMOVED
   const { setAuthUser } = useContext(AuthContext);
 
   const handleInputErrors = (formData) => {
@@ -40,13 +40,12 @@ const useSignup = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/auth/signup", formData);
+      const res = await api.post("/api/auth/signup", formData); // <-- CHANGED
       toast.success("Signup successful!");
-      console.log(res.data);
       const userData = res.data.user;
       localStorage.setItem("chat-user", JSON.stringify(userData));
       setAuthUser(userData);
-      navigate("/");
+      window.location.href = "/"; // <-- CHANGED
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
     } finally {

@@ -8,13 +8,6 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    proxy: {
-      "/api": {
-        target: "http://13.204.84.85:5000",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
   },
   daisyui: {
     themes: ["dark"],

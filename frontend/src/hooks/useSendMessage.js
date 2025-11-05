@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import api from "../api/api.js"; // <-- CHANGED
 import useContacts from "../zustand/useContacts";
 
 const useSendMessage = () => {
@@ -13,20 +13,12 @@ const useSendMessage = () => {
     }
     setLoading(true);
     try {
-      // --- CHANGED ---
-      // The API endpoint now expects the USERNAME
-      const res = await axios.post(
+      const res = await api.post(
+        // <-- CHANGED
         `/api/messages/send/${selectedContact.username}`,
         { message }
       );
-      // --- END ---
-
-      // --- CHANGED ---
-      // Our new backend returns the message object directly, not {newMessage: ...}
-      // setMessages([...messages, res.data.newMessage]); // <-- OLD
-      setMessages([...messages, res.data]); // <-- NEW
-      // --- END ---
-
+      setMessages([...messages, res.data]);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message);
     } finally {

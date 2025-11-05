@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import axios from "axios";
+import api from "../api/api.js"; // <-- CHANGED
 import toast from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
 import useContacts from "../zustand/useContacts";
@@ -10,7 +10,7 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      await axios.post("/api/auth/logout");
+      await api.post("/api/auth/logout"); // <-- CHANGED
       localStorage.removeItem("chat-user");
       setAuthUser(null);
       setSelectedContact(null);
