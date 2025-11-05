@@ -12,13 +12,13 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       const socket = io(
-        "http://localhost:5000", // Uncomment this for local dev if needed
+        // "http://localhost:5000", // Uncomment this for local dev if needed
+        "http://13.204.84.85:5000",
         {
           query: {
             // --- CHANGED ---
             // We now send the username as the unique ID for the socket server
             userId: authUser.username,
-            // --- END ---
           },
         }
       );
